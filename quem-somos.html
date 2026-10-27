@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<script>/* VERSÃO DE TESTE: o site publicado envia o formulário e o diagnóstico ao painel (/api/...).
+   Aqui não há servidor: o envio é simulado e nada sai da página. */
+(function(){var f=window.fetch;window.fetch=function(u,o){if(String(u).indexOf('/api/')<0)return f.apply(this,arguments);
+return new Promise(function(r){setTimeout(r,500)}).then(function(){return new Response(JSON.stringify({ok:true,uid:'teste-'+Date.now()}),{status:200,headers:{'Content-Type':'application/json'}})})};
+document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.setAttribute('role','note');
+d.textContent='Versão de teste para aprovação · os envios de formulário e diagnóstico são simulados';
+d.style.cssText='position:fixed;left:16px;bottom:16px;z-index:9999;max-width:calc(100% - 110px);background:#01484b;color:#fff;font:600 12px/1.4 Arial,sans-serif;padding:8px 12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.2)';
+document.body.appendChild(d)})})();</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quem Somos — Life Laboral</title>
+<meta name="description" content="A Life Laboral surgiu da evolução da Life Ocupacional, unindo tradição, inovação e um olhar humano para transformar ambientes corporativos em lugares mais seguros, saudáveis e produtivos.">
+<meta name="theme-color" content="#019096">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Life Laboral">
+<meta property="og:title" content="Quem Somos — Life Laboral">
+<meta property="og:description" content="A Life Laboral surgiu da evolução da Life Ocupacional, unindo tradição, inovação e um olhar humano para transformar ambientes corporativos em lugares mais seguros, saudáveis e produtivos.">
+<meta property="og:image" content="assets/img/hero-seguranca-do-trabalho.jpg">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/Logo-Life-Saude-Ocupacional-Site.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<!-- tema da página inicial (inicio.css) + componentes das páginas internas (paginas.css) -->
+<link rel="stylesheet" href="assets/css/inicio.css?v=f73d69ca">
+<link rel="stylesheet" href="assets/css/paginas.css?v=f73d69ca">
+</head>
+<body>
+<a class="sr pular" href="#conteudo">Pular para o conteúdo</a>
+<div class="top"><div class="wrap"><span class="address">Saúde e segurança do trabalho em São Caetano do Sul</span><span><a href="tel:+551142260222">(11) 4226-0222</a><a href="mailto:contato@lifelaboral.com.br">contato@lifelaboral.com.br</a></span></div></div>
+<header><nav class="wrap nav" aria-label="Navegação principal"><a class="brand" href="index.html" aria-label="Life Laboral início"><img src="assets/img/Logo-Life-Saude-Ocupacional-Site.png" alt="Life Laboral" width="165" height="66"></a><div class="links" id="menu"><a href="index.html">Início</a><a href="quem-somos.html" aria-current="page">Quem somos</a><a href="servicos.html">Soluções</a><a href="index.html#diagnostico">Diagnóstico</a><a href="publicacoes.html">Blog</a><a href="contato.html">Contato</a></div><a class="btn" href="contato.html#contato">Solicitar proposta <span aria-hidden="true">↗</span></a><button class="menu" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">☰</button></nav></header>
+<main id="conteudo">
+<section class="hero hero--pagina" style="background-image:url('assets/img/Landing-Image.jpg')" aria-label="Apresentação"><div class="wrap"><div class="hero-copy"><div class="tag">Quem somos</div><h1>Sobre a <em>Life Laboral</em></h1><p>Somos mais que uma empresa de saúde ocupacional: somos parceiros do seu negócio.</p><div class="actions"><a class="btn" href="servicos.html">Nossas soluções <span aria-hidden="true">↗</span></a><a class="btn light" href="#sobre">Nossa história <span aria-hidden="true">↓</span></a></div></div></div></section>
+
+<div class="wrap numeros">
+<div class="numero"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/></svg></span><div><p class="numero__valor"><span data-valor="25" data-sufixo=" anos">25 anos</span></p><span class="numero__rotulo">de experiência</span></div></div>
+<div class="numero"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><div><p class="numero__valor"><span data-valor="500" data-sufixo="+">500+</span></p><span class="numero__rotulo">atendimentos</span></div></div>
+<div class="numero"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.9 14 10h5.8a2 2 0 0 1 1.9 2.6l-2.3 8a2 2 0 0 1-1.9 1.4H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L12 2a3.1 3.1 0 0 1 3 3.9Z"/></svg></span><div><p class="numero__valor"><span data-valor="100" data-sufixo="+">100+</span></p><span class="numero__rotulo">clientes satisfeitos</span></div></div>
+<div class="numero"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg></span><div><p class="numero__valor"><span data-valor="750" data-sufixo="+">750+</span></p><span class="numero__rotulo">laudos realizados</span></div></div>
+</div>
+
+<section class="about" id="sobre"><div class="wrap about-grid"><div class="photos"><img class="main" src="assets/img/About-Us-Image-4.jpg" alt="Profissional de saúde ocupacional atendendo um colaborador" width="700" height="900" loading="lazy"><img class="inset" src="assets/img/profissionais-em-falta.jpg" alt="Equipe multidisciplinar da Life Laboral em reunião" width="600" height="600" loading="lazy"><div class="photo-label"><b>Life Ocupacional agora é Life Laboral.</b>Tradição, inovação e um olhar humano.</div></div><div class="about-copy"><div class="tag">Sobre nós</div><h2>Life Ocupacional<br>agora é Life Laboral!</h2><p>A Life Laboral surgiu da evolução da Life Ocupacional, unindo tradição, inovação e um olhar humano para transformar ambientes corporativos em lugares mais seguros, saudáveis e produtivos.</p><p>Com uma equipe multidisciplinar, atendimento em todo o Brasil e foco em excelência, ajudamos empresas a se manterem em conformidade legal e a cuidarem do bem mais precioso: as pessoas.</p>
+<div class="grade-2"><article class="mini"><h3>Nossa visão</h3><p>Ser referência nacional em soluções integradas de saúde laboral.</p></article><article class="mini"><h3>Nossa missão</h3><p>Promover saúde, segurança e qualidade de vida no ambiente corporativo.</p></article></div>
+<h3 class="sub">Nossos valores</h3><div class="checks"><span>Ética</span><span>Excelência</span><span>Respeito</span><span>Cuidado com o ser humano</span><span>Inovação</span></div></div></div></section>
+
+<section class="services"><div class="wrap"><div class="heading"><div><div class="tag">O que nos move</div><h2>Por que empresas escolhem<br>a Life Laboral</h2></div><p>Saúde ocupacional, segurança do trabalho e capacitação com o mesmo cuidado, de uma unidade a todo o país.</p></div><div class="grade-3">
+<article class="card"><span class="num" aria-hidden="true">01</span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><h3>Equipe multidisciplinar</h3><p>Medicina do trabalho, engenharia de segurança, ergonomia e legislação trabalhista sob o mesmo teto.</p></article>
+<article class="card"><span class="num" aria-hidden="true">02</span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><h3>Atendimento em todo o Brasil</h3><p>Base em São Caetano do Sul e cobertura nacional para empresas com unidades distribuídas.</p></article>
+<article class="card"><span class="num" aria-hidden="true">03</span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1Z"/><path d="m9 12 2 2 4-4"/></svg></span><h3>Conformidade sem sustos</h3><p>Documentação organizada, prazos cumpridos e acompanhamento das mudanças nas Normas Regulamentadoras.</p></article>
+</div></div></section>
+
+<div class="closing"><div class="wrap"><div><h2>Pronto para cuidar da saúde e segurança da sua equipe com eficiência?</h2><p>Cada empresa tem desafios únicos. Por isso, nossos serviços são moldados sob medida, com atendimento humanizado, agilidade nos processos e suporte completo: dos exames admissionais à gestão de riscos e treinamentos.</p></div><div class="actions"><a class="btn light" href="servicos.html">Nossas soluções <span aria-hidden="true">↗</span></a><a class="btn ghost" href="contato.html#contato">Solicite uma proposta</a></div></div></div>
+</main>
+<footer><div class="wrap"><div class="footer-grid"><div><div class="footer-brand">life<span>laboral</span></div><p>Saúde ocupacional e segurança do trabalho. Cuidado com as pessoas, compromisso com sua empresa.</p><ul class="redes"><li><a href="https://www.instagram.com/lifelaboral/" target="_blank" rel="noopener" aria-label="Instagram da Life Laboral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a></li><li><a href="https://www.linkedin.com/company/life-laboral-medicina-ocupacional/" target="_blank" rel="noopener" aria-label="LinkedIn da Life Laboral"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8.5 8h3.8v2.2h.06c.53-1 1.83-2.2 3.76-2.2 4.02 0 4.76 2.6 4.76 6V24h-4v-7.1c0-1.7-.03-3.9-2.4-3.9-2.4 0-2.77 1.85-2.77 3.78V24h-4z"/></svg></a></li></ul></div><div><h4>Explore</h4><a href="quem-somos.html">Quem somos</a><a href="servicos.html">Nossas soluções</a><a href="index.html#diagnostico">Diagnóstico gratuito</a><a href="publicacoes.html">Blog</a><a href="https://lifelaboral.vagas.solides.com.br/" target="_blank" rel="noopener">Trabalhe conosco ↗</a><a href="politica-de-privacidade.html">Política de privacidade</a></div><div><h4>Estamos por perto</h4><a href="tel:+551142260222">(11) 4226-0222</a><a href="mailto:contato@lifelaboral.com.br">contato@lifelaboral.com.br</a><p>Rua Niterói, 16 · Centro<br>São Caetano do Sul · SP</p></div></div><div class="copy"><span>© 2026 Life Laboral. Todos os direitos reservados.</span><span>Saúde e segurança em cada etapa.</span></div></div></footer>
+<a class="wa" href="https://wa.me/551142260222" aria-label="Conversar com a Life Laboral no WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.4-4.1A8 8 0 1 1 20 11.5Z"/><path d="M8 7c0 5 3 8 7 8l1-2-2-1-1 1c-2-1-3-2-3-3l1-1-1-2Z"/></svg></a>
+<script src="assets/js/site.js?v=f73d69ca" defer></script>
+<script src="assets/js/inicio.js?v=f73d69ca" defer></script>
+</body>
+</html>

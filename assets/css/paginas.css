@@ -1,0 +1,170 @@
+/* Páginas internas (Quem somos, Serviços, Contato, Blog, publicações, Política e 404) no tema da página inicial.
+   Vem depois do inicio.css: usa os mesmos tokens (--navy, --blue, --teal, --ink, --muted, --pale), as fontes
+   DM Sans e Manrope, os cantos de 14 a 18 px, os botões .btn, o .tag, o .card e as seções de 56 px. */
+
+.visualmente-oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.centro{text-align:center}
+.centro .tag{justify-content:center}
+.icon svg{width:24px;height:24px}
+
+/* ---------- topo das páginas: foto e cartão de vidro, como o da página inicial, mais baixo ---------- */
+.hero--pagina{min-height:440px;padding:56px 0} /* a foto vem no style da página (background-image) */
+.hero--pagina .wrap{padding:0 0 30px}
+.hero--pagina .hero-copy{width:min(560px,48%)}
+.hero--pagina h1{font-size:clamp(32px,3vw,46px)}
+.hero--pagina .hero-copy p{margin:16px 0 0}
+.hero--pagina .actions{margin-top:24px}
+
+/* topo sem foto: publicação, categoria, política e 404 */
+.cabeca{background:linear-gradient(180deg,var(--pale),#fff);padding:48px 0 36px}
+.cabeca h1{font-size:clamp(30px,3.2vw,44px)}
+.cabeca .resumo{color:var(--muted);font-size:15px;margin:16px 0 0}
+.wrap--texto{width:min(800px,90%);margin:auto}
+.migalhas ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;font-size:12px;color:var(--muted)}
+.migalhas li+li:before{content:'/';margin-right:6px;color:#b9d6d7}
+.migalhas a:hover{color:var(--blue)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 16px}
+.meta a:hover{color:var(--navy);text-decoration:underline}
+
+/* ---------- títulos de seção ---------- */
+.heading--texto p{max-width:520px}
+.heading--texto p+p{margin-top:12px}
+.heading--centro{display:block;text-align:center;max-width:720px;margin-inline:auto}
+.heading--centro .tag{justify-content:center}
+.heading--centro p{max-width:none;margin-top:14px}
+
+/* ---------- grades e cartões ---------- */
+.grade-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grade-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grade-3 .card p{min-height:0;margin-bottom:0}
+.card--link{display:flex;flex-direction:column}
+.card--link h3{margin-bottom:8px}
+.card--link .mais{margin-top:auto;padding-top:16px;font-size:12px;font-weight:700;color:var(--blue)}
+.mini{border:1px solid #d8ecec;border-radius:12px;background:#fff;padding:18px 20px}
+.mini h3{font-size:16px;letter-spacing:-.3px;margin:0 0 6px}
+.mini p{font-size:13px;color:var(--muted);margin:0;line-height:1.6}
+.sub{font-family:Manrope,Arial,sans-serif;font-size:17px;font-weight:800;letter-spacing:-.4px;margin:28px 0 0}
+.about-copy .checks:last-child{margin-bottom:0}
+.checks--lista{grid-template-columns:1fr;gap:12px}
+.checks--lista span{display:flex;gap:9px;line-height:1.55}
+.checks--lista span:before{margin:0}
+
+/* ---------- números (Quem somos) ---------- */
+.numeros{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:35px 0;border-bottom:1px solid #e7f2f2}
+.numero{display:flex;gap:16px;align-items:center}
+.numero__valor{margin:0;font:800 clamp(26px,2.4vw,34px)/1 Manrope,Arial,sans-serif;letter-spacing:-1px;color:var(--navy);font-variant-numeric:tabular-nums}
+.numero__rotulo{display:block;font-size:12px;color:var(--muted);margin-top:6px}
+
+/* ---------- fotos ---------- */
+.foto{width:100%;height:410px;object-fit:cover;border-radius:18px;display:block}
+
+/* ---------- serviços detalhados ---------- */
+.servico{scroll-margin-top:110px}
+.servico .about-grid{gap:70px}
+.servico--inverso .about-grid>:first-child{order:2}
+.servico .about-copy h2{font-size:clamp(26px,2.4vw,34px)}
+.servico .actions{margin-top:28px}
+
+/* botão claro sobre fundo escuro (faixa final) */
+.btn.ghost{background:transparent;color:#fff;border:1px solid #ffffff8c}
+.btn.ghost:hover{background:#ffffff1f}
+.closing .actions{flex-shrink:0}
+.closing p{max-width:640px}
+
+/* ---------- contato ---------- */
+.details .icon{height:44px;width:44px;border-radius:12px}
+.details .icon svg{width:20px;height:20px}
+.contact-copy .redes{margin-top:26px}
+.contact-copy .redes a{background:#eaf9fa;color:var(--blue)}
+.contact-copy .redes a:hover{background:var(--blue);color:#fff}
+.mapa{border-radius:18px;overflow:hidden;border:1px solid #e0eeef;box-shadow:0 15px 45px #125d6007;background:var(--pale)}
+.mapa iframe{display:block;width:100%;height:400px;border:0}
+
+/* ---------- blog: filtro, cartões e paginação ---------- */
+.filtro-categorias{margin:0 0 26px}
+.filtro-categorias ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0}
+.filtro-categorias a{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid #d7e8e9;border-radius:99px;
+  background:#fff;font-size:13px;font-weight:600;transition:border-color .2s,color .2s}
+.filtro-categorias a:hover{border-color:var(--teal);color:var(--blue)}
+.filtro-categorias a[aria-current]{background:var(--blue);border-color:var(--blue);color:#fff}
+.filtro-categorias__total{font-size:11px;font-weight:700;border-radius:99px;padding:2px 8px;background:#eaf9fa;color:var(--blue)}
+.filtro-categorias a[aria-current] .filtro-categorias__total{background:#ffffff2e;color:#fff}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cartao-post{display:flex;flex-direction:column;border:1px solid #e0eeef;border-radius:14px;background:#fff;overflow:hidden;
+  transition:transform .25s,box-shadow .25s,border-color .25s}
+.cartao-post:hover{transform:translateY(-6px);box-shadow:0 20px 45px #145e6110;border-color:#82cccf}
+.cartao-post__figura img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block}
+.cartao-post__corpo{display:flex;flex-direction:column;flex:1;padding:22px 23px 24px}
+.cartao-post__meta{margin:0;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.cartao-post__meta a:hover{text-decoration:underline}
+.cartao-post h3{font-size:18px;letter-spacing:-.4px;line-height:1.32;margin:10px 0 8px}
+.cartao-post h3 a:hover{color:var(--blue)}
+.cartao-post__corpo>p:not(.cartao-post__meta){font-size:13px;color:var(--muted);margin:0 0 14px}
+.cartao-post__link{margin-top:auto;font-size:12px;font-weight:700;color:var(--blue)}
+.cartao-post__link:after{content:' ↗'}
+.paginacao{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:32px}
+.paginacao a,.paginacao span{min-width:42px;height:42px;padding:0 12px;display:grid;place-items:center;border:1px solid #d7e8e9;
+  border-radius:99px;background:#fff;font-size:14px;font-weight:600}
+.paginacao a:hover{border-color:var(--teal);color:var(--blue)}
+.paginacao [aria-current]{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* ---------- publicação ---------- */
+.post-capa{width:min(960px,90%);margin:0 auto}
+.post-capa img{width:100%;height:auto;display:block;border-radius:18px;box-shadow:0 16px 45px #125d6014}
+.texto{width:min(760px,90%);margin:0 auto;font-size:16px;color:#3c4a4a}
+.texto p{margin:0 0 1.1em}
+.texto h2{font-size:clamp(24px,2.2vw,30px);letter-spacing:-.8px;margin:1.6em 0 .5em;color:var(--ink)}
+.texto h3{font-size:20px;letter-spacing:-.5px;margin:1.4em 0 .45em;color:var(--ink)}
+.texto h4{font:800 17px Manrope,Arial,sans-serif;margin:1.3em 0 .4em;color:var(--ink)}
+.texto>:first-child{margin-top:0}
+.texto a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+.texto strong{color:var(--ink)}
+.texto img{max-width:100%;height:auto;display:block;border-radius:14px;margin:1.4em auto}
+.texto figure{margin:1.6em 0}
+.texto figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:.5em}
+.texto ul,.texto ol{padding-left:1.3em;margin:0 0 1.2em}
+.texto li{margin-bottom:.45em;line-height:1.7}
+.texto li::marker{color:var(--teal)}
+.texto blockquote{margin:1.6em 0;padding:18px 24px;border-left:4px solid var(--teal);background:var(--pale);border-radius:0 12px 12px 0;color:var(--ink)}
+.texto blockquote p:last-child{margin:0}
+.texto table{display:block;overflow-x:auto;border-collapse:collapse;margin:1.6em 0;font-size:14px}
+.texto th,.texto td{border:1px solid #d8ecec;padding:10px 14px;text-align:left;vertical-align:top}
+.texto th{background:#eaf9fa;font-family:Manrope,Arial,sans-serif}
+.texto .has-medium-font-size{font-size:18px}
+.post-navegacao{width:min(760px,90%);margin:40px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.post-navegacao:empty{display:none}
+.post-navegacao a{border:1px solid #e0eeef;border-radius:14px;background:#fff;padding:16px 18px;font-size:14px;font-weight:600;line-height:1.45;
+  transition:transform .2s,border-color .2s}
+.post-navegacao a:hover{transform:translateY(-3px);border-color:#82cccf}
+.post-navegacao small{display:block;margin-bottom:6px;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.post-navegacao .proximo{grid-column:2;text-align:right}
+
+/* ---------- 404 ---------- */
+.erro{text-align:center;padding:88px 0;min-height:56vh}
+.erro .tag{justify-content:center}
+.erro p{color:var(--muted);max-width:520px;margin:16px auto 26px}
+
+@media(max-width:1000px){
+  .numeros{grid-template-columns:repeat(2,1fr);gap:24px}
+  .grade-3,.posts{grid-template-columns:repeat(2,1fr)}
+  .servico .about-grid{gap:40px}
+  .hero--pagina .hero-copy{width:min(520px,60%)}
+}
+@media(max-width:700px){
+  .hero--pagina{background-size:auto 240px;padding-top:200px;padding-bottom:40px}
+  .hero--pagina .wrap{padding:0}
+  .hero--pagina .hero-copy{width:100%}
+  .hero--pagina h1{font-size:32px}
+  .cabeca{padding:34px 0 26px}
+  .numeros{grid-template-columns:1fr 1fr;gap:20px;padding:30px 0}
+  .numero{flex-direction:column;align-items:flex-start;gap:12px}
+  .grade-3,.grade-2,.posts{grid-template-columns:1fr}
+  .servico--inverso .about-grid>:first-child{order:0}
+  .foto{height:280px}
+  .mapa iframe{height:300px}
+  .post-navegacao{grid-template-columns:1fr}
+  .post-navegacao .proximo{grid-column:auto;text-align:left}
+  .closing .actions{margin-top:22px}
+  .closing .btn{margin-top:0}
+  .erro{padding:56px 0}
+}
