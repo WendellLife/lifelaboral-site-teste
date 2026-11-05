@@ -32,6 +32,58 @@
     }
   }
 
+  /* Topo da página inicial, só no celular: inclinar para a direita desliza a foto e mostra a fábrica ao fundo.
+     Parte da posição em que a pessoa já segura o celular; segue suave (rAF), só com transform, e só ouve o
+     sensor enquanto a foto está na tela. Sem movimento com "reduzir movimento". */
+  var foto = document.querySelector('[data-hero-foto]');
+  var celular = window.matchMedia('(max-width: 700px)');
+  if (foto && 'DeviceOrientationEvent' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var REPOUSO = 6, GRAUS = 25, ALCANCE = 0.6; // px de folga à esquerda; graus até o fim; parte da fábrica que aparece
+    var alvo = REPOUSO, atual = REPOUSO, base = null, quadro = 0, ouvindo = false, sentiu = false, naTela = true;
+    var desenhar = function () {
+      atual += (alvo - atual) * 0.12;
+      if (Math.abs(alvo - atual) < 0.3) atual = alvo;
+      foto.style.transform = 'translate3d(' + (-atual).toFixed(1) + 'px,0,0)';
+      quadro = atual === alvo ? 0 : requestAnimationFrame(desenhar);
+    };
+    var girou = function (e) {
+      if (!celular.matches || e.gamma === null || e.gamma === undefined) return;
+      sentiu = true;
+      if (base === null) base = e.gamma;
+      var faixa = Math.max(0, foto.offsetWidth - foto.parentNode.clientWidth) * ALCANCE;
+      var t = (e.gamma - base) / GRAUS;
+      alvo = Math.min(faixa, Math.max(0, REPOUSO + t * faixa));
+      if (!quadro) quadro = requestAnimationFrame(desenhar);
+    };
+    var ouvir = function (sim) {
+      if (sim === ouvindo) return;
+      ouvindo = sim;
+      window[sim ? 'addEventListener' : 'removeEventListener']('deviceorientation', girou);
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entradas) { naTela = entradas[0].isIntersecting; ouvir(naTela); }).observe(foto);
+    }
+    ouvir(naTela);
+    // iPhone: o Safari só manda o movimento depois da permissão, pedida num toque. No Android ele já chega.
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      setTimeout(function () {
+        if (sentiu || !celular.matches) return;
+        var botaoFoto = document.createElement('button');
+        botaoFoto.type = 'button';
+        botaoFoto.className = 'hero-inclinar';
+        botaoFoto.innerHTML = '<span aria-hidden="true">↔</span> Ver a fábrica';
+        botaoFoto.setAttribute('aria-label', 'Mover a foto ao inclinar o celular');
+        botaoFoto.addEventListener('click', function () {
+          botaoFoto.hidden = true;
+          DeviceOrientationEvent.requestPermission().then(function (r) {
+            if (r === 'granted') { ouvindo = false; ouvir(naTela); }
+          }).catch(function () {});
+        });
+        foto.parentNode.appendChild(botaoFoto);
+      }, 1200);
+    }
+  }
+
   var servico = document.getElementById('f-servico'), mensagem = document.getElementById('f-mensagem');
   var preenchida = '';
   function escolher(valor, texto) {
