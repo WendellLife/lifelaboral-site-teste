@@ -1,7 +1,9 @@
 /* Diagnóstico de SST da página inicial.
    O método (perguntas, pontos, riscos, multas) vem do ANT e está embutido na página
-   (<script id="metodo-diagnostico">, gerado por gerar.py). O resultado aparece na hora;
-   o servidor (painel/diagnosticos.py) recalcula a pontuação e repassa ao ANT.            */
+   (<script id="metodo-diagnostico">, gerado por gerar.py). Depois da última pergunta, a pessoa
+   informa nome, WhatsApp e e-mail, e só então vê o resultado (decisão de 24/11/2026). As respostas
+   já seguem ao servidor antes do contato: quem desiste ali fica nos Diagnósticos do ANT.
+   O servidor (painel/diagnosticos.py) recalcula a pontuação e repassa ao ANT.            */
 (function () {
   'use strict';
 
@@ -18,6 +20,7 @@
   var telas = {
     intro: raiz.querySelector('[data-diag-tela="intro"]'),
     quiz: raiz.querySelector('[data-diag-tela="quiz"]'),
+    contato: raiz.querySelector('[data-diag-tela="contato"]'),
     resultado: raiz.querySelector('[data-diag-tela="resultado"]')
   };
   var P = M.perguntas;
@@ -208,7 +211,7 @@
   /* ---------------- resultado ---------------- */
   function concluir() {
     var res = calcular(estado.indices);
-    resultado(res);
+    pedirContato(res);
     var corpo = { respostas: estado.indices.slice(0, P.length), t: Date.now() - estado.inicio, website: '',
       pagina: window.location.pathname, utm: utm };
     postar(endpoint, corpo).then(function (x) {
@@ -307,12 +310,12 @@
       t.appendChild(sl);
     }
 
-    t.appendChild(formularioContato(res));
+    t.appendChild(recebido(res));
     mostrar('resultado');
     focar(titulo);
   }
 
-  /* ---------------- contato depois do resultado ---------------- */
+  /* ---------------- contato antes do resultado ---------------- */
   function campo(id, rotulo, tipo, extra, obrigatorio) {
     var entrada = el('input', Object.assign({ id: id, name: id.replace('dc-', ''), type: tipo }, extra || {}));
     if (obrigatorio) entrada.required = true;
@@ -339,44 +342,63 @@
   function validar(form) {
     var d = {};
     ['nome', 'empresa', 'telefone', 'email'].forEach(function (k) { d[k] = form.querySelector('[name="' + k + '"]').value.trim(); });
+    d.aceite_email = form.querySelector('[name="aceite_email"]').checked;
     var erros = {};
     if (d.nome.length < 2) erros.nome = 'Informe o seu nome.';
     var tel = d.telefone.replace(/\D/g, '');
-    if (d.telefone && (tel.length < 10 || tel.length > 13)) erros.telefone = 'Informe o telefone com DDD.';
-    if (d.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) erros.email = 'Informe um e-mail válido.';
-    if (!d.telefone && !d.email) erros.telefone = 'Informe um telefone ou um e-mail para retornarmos.';
+    if (!d.telefone) erros.telefone = 'Informe o WhatsApp com DDD.';
+    else if (tel.length < 10 || tel.length > 13) erros.telefone = 'Informe o WhatsApp com DDD.';
+    if (!d.email) erros.email = 'Informe o e-mail.';
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) erros.email = 'Informe um e-mail válido.';
     return { d: d, erros: erros };
   }
 
-  function formularioContato(res) {
-    var caixa = el('div', { classe: 'diag__contato', id: 'diag-contato' });
-    var form = el('form', { novalidate: '' });
-    caixa.appendChild(el('h3', { texto: 'Receba o plano para eliminar esses riscos' }));
-    caixa.appendChild(el('p', {}, ['A equipe técnica analisa as respostas e retorna em até ',
-      el('strong', { texto: res.faixa.prazo }), ' com as prioridades, o que resolver primeiro e quanto custa regularizar. Sem compromisso.']));
+  function pedirContato(res) {
+    var t = telas.contato;
+    t.innerHTML = '';
+    var barra = el('span');
+    barra.style.transform = 'scaleX(1)';
+    t.appendChild(el('div', { classe: 'diag__topo' }, [
+      el('span', { classe: 'diag__bloco', texto: 'Último passo' }),
+      el('span', { texto: P.length + ' de ' + P.length + ' respondidas' })
+    ]));
+    t.appendChild(el('div', { classe: 'diag__barra', 'aria-hidden': 'true' }, [barra]));
+    var titulo = el('h3', { classe: 'diag__pergunta', id: 'diag-contato-titulo', texto: 'Seu resultado está pronto' });
+    t.appendChild(titulo);
+    t.appendChild(el('p', { classe: 'diag__ajuda', texto: 'Informe seu contato para ver o nível de exposição, os riscos e as multas ' +
+      'de referência. A equipe técnica também envia o plano para eliminar esses riscos, sem compromisso.' }));
+
+    var form = el('form', { classe: 'diag__contato-form', novalidate: '' });
     var duplos1 = el('div', { classe: 'campos-duplos' }, [
       campo('dc-nome', 'Nome', 'text', { autocomplete: 'name', maxlength: '150' }, true),
       campo('dc-empresa', 'Empresa', 'text', { autocomplete: 'organization', maxlength: '200' }, false)
     ]);
     var duplos2 = el('div', { classe: 'campos-duplos' }, [
-      campo('dc-telefone', 'Telefone ou WhatsApp', 'tel', { autocomplete: 'tel', inputmode: 'tel', maxlength: '20', placeholder: '(11) 90000-0000' }, false),
-      campo('dc-email', 'E-mail', 'email', { autocomplete: 'email', maxlength: '254', placeholder: 'nome@empresa.com.br' }, false)
+      campo('dc-telefone', 'WhatsApp', 'tel', { autocomplete: 'tel', inputmode: 'tel', maxlength: '20', placeholder: '(11) 90000-0000' }, true),
+      campo('dc-email', 'E-mail', 'email', { autocomplete: 'email', maxlength: '254', placeholder: 'nome@empresa.com.br' }, true)
+    ]);
+    var aceite = el('label', { classe: 'diag__aceite', for: 'dc-aceite' }, [
+      el('input', { id: 'dc-aceite', name: 'aceite_email', type: 'checkbox' }),
+      el('span', { texto: 'Quero receber conteúdos de saúde e segurança do trabalho por e-mail. Posso sair quando quiser.' })
     ]);
     var isca = el('div', { classe: 'campo-isca', 'aria-hidden': 'true' }, [
       el('label', { for: 'dc-website', texto: 'Não preencha este campo' }),
       el('input', { id: 'dc-website', name: 'website', type: 'text', tabindex: '-1', autocomplete: 'off' })
     ]);
-    var enviar = el('button', { classe: 'botao', type: 'submit', texto: 'Quero o plano de regularização' });
-    var refazer = el('button', { classe: 'diag__refazer', type: 'button', texto: 'Refazer o diagnóstico' });
-    refazer.addEventListener('click', reiniciar);
+    var enviar = el('button', { classe: 'botao', type: 'submit', texto: 'Ver meu resultado' });
+    var voltar = el('button', { classe: 'diag__voltar', type: 'button', texto: '← Voltar à última pergunta' });
+    voltar.addEventListener('click', function () { pergunta(P.length - 1); });
     var retorno = el('div', { classe: 'form-retorno', role: 'status', 'aria-live': 'polite', tabindex: '-1' });
     form.appendChild(duplos1);
     form.appendChild(duplos2);
-    form.appendChild(el('p', { classe: 'diag__sigilo', texto: 'Informe ao menos um telefone ou um e-mail.' }));
+    form.appendChild(aceite);
     form.appendChild(isca);
-    form.appendChild(el('div', { classe: 'diag__acoes' }, [enviar, botaoWhatsApp(res, 'Prefiro o WhatsApp'), refazer]));
+    form.appendChild(el('div', { classe: 'diag__acoes' }, [enviar]));
     form.appendChild(retorno);
-    caixa.appendChild(form);
+    t.appendChild(form);
+    var privacidade = el('a', { href: (raiz.getAttribute('data-privacidade') || 'politica-de-privacidade.html'), texto: 'política de privacidade' });
+    t.appendChild(el('p', { classe: 'diag__sigilo' }, ['Sigiloso: os dados ficam só com a equipe da Life Laboral. Veja a ', privacidade, '.']));
+    t.appendChild(el('div', { classe: 'diag__rodape' }, [voltar, el('span')]));
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -393,7 +415,8 @@
       postar(endpoint + '/contato', corpo).then(function (x) {
         if (x.r.ok && x.j.ok) {
           estado.contato = v.d;
-          concluido(caixa, res);
+          if (x.j.uid) estado.uid = x.j.uid;
+          resultado(res);
           return;
         }
         if (x.j.erros) {
@@ -406,10 +429,11 @@
       }).catch(function () { falha(retorno); }).then(function () {
         form.removeAttribute('aria-busy');
         enviar.disabled = false;
-        enviar.textContent = 'Quero o plano de regularização';
+        enviar.textContent = 'Ver meu resultado';
       });
     });
-    return caixa;
+    mostrar('contato');
+    focar(titulo);
   }
 
   function falha(retorno, msg) {
@@ -418,16 +442,15 @@
     retorno.focus({ preventScroll: true });
   }
 
-  function concluido(caixa, res) {
-    caixa.innerHTML = '';
-    var titulo = el('h3', { texto: 'Recebemos seu contato' });
-    caixa.appendChild(titulo);
+  function recebido(res) {
+    var caixa = el('div', { classe: 'diag__contato', id: 'diag-contato' });
+    caixa.appendChild(el('h3', { texto: 'Recebemos seu contato' }));
     caixa.appendChild(el('p', {}, ['A equipe técnica fala com você em até ', el('strong', { texto: res.faixa.prazo }),
       ' com a leitura destes riscos e o plano para eliminá-los.']));
     var refazer = el('button', { classe: 'diag__refazer', type: 'button', texto: 'Refazer o diagnóstico' });
     refazer.addEventListener('click', reiniciar);
     caixa.appendChild(el('div', { classe: 'diag__acoes' }, [botaoWhatsApp(res, 'Adiantar pelo WhatsApp'), refazer]));
-    focar(titulo);
+    return caixa;
   }
 
   function reiniciar() {
